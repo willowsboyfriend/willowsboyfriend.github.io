@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>新年快乐！我的宝宝</title>
+	<style>
+	*{margin:0;padding:0;list-style:none;}
+	html,body{height:100%}
+	body{background: url(images/bg.jpg) no-repeat center center;background-size:cover;}
+	/* 以下是CSS3样式，适合高版本浏览器 */
+	.Snowflake{animation:linear spin infinite 20s;-webkit-animation:linear spin infinite 20s;-moz-animation:linear spin infinite 20s;pointer-events:none;}
+	@keyframes spin{
+		0% {transform:rotate(0deg);}
+		100% {transform:rotate(359deg);}
+	}
+	@-webkit-keyframes spin{
+		0% {-webkit-transform:rotate(0deg);}
+		100% {-webkit-transform:rotate(359deg);}
+	}
+	@-moz-keyframes spin{
+		0% {-moz-transform:rotate(0deg);}
+		100% {-moz-transform:rotate(359deg);}
+	}
+	div{
+	text-align:center;
+	margin:0 auto;
+	}
+	input{
+		width:60%;
+		height:30px;
+		font-size:20px;
+	}
+	button{
+		width:50%;
+		height:30px;
+		font-size:20px;
+		background-color:orangered;
+		border:none;
+	}
+	</style>
+</head>
+<body>
+	<script src="js/snowflake.js"></script>
+	<script>
+		createSnow('', 200);
+	</script>
+	<div style="width:50%;height:600px;">
+		<div style="width:100%;height:200px;"></div>
+		<div style="width:100%;height:100px;font-size:60px;color:pink;">新年快乐</div>
+		<div style="width:100%;height:60px;font-size:30px;color:red;">PLEASE ENTER OUR SECRET</div>
+		<div style="width:100%;height:70px;font-size:30px;color:red;"><center><input  id="input" placeholder="输入我们在一起的那一天" /></center></div>
+	    <div style="width:100%;height:50px;font-size:20px;color:darkred;">示例：19980905</div>
+	     <div>
+              <button align="center" type="submit" onclick="check()">ENTER</button>
+              </div>
+	</div>
+	<script language="javascript">
+      function check(){
+        var value = document.getElementById("input").value; 
+         
+        if(value=="20181020"){
+          window.location.href="index2.html";
+           return true;
+          
+        } 
+         else{
+          alert("incorrect!");
+          return false;
+         }
+       
+      }
+       
+    document.onkeydown=keyListener;
+    function keyListener(e){
+      // 当按下回车键，执行我们的代码
+    if(e.keyCode == 13){
+      check();
+    }
+}
+   </script>
+</body>
+</html>

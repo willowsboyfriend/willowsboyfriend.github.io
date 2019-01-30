@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>我说过的话我都记得，你说过的话更难忘</title>
+
+<script src="js/jquery-3.0.0.min.js"></script>
+
+<style type="text/css">
+.barrager{width:100%;margin:0 auto;overflow:hidden;height:600px;position:relative;}
+	.barrager div{position:absolute;}
+	.addBarrager{border:1px solid #d5d5d5;height:75px;width:800px;margin:0 auto 30px;-webkit-border-radius: 20px;-moz-border-radius:20px;border-radius: 20px;}
+	.addBarrager input{height:38px;margin-top:20px;margin-left:2%;width:70%;text-indent:30px;border:none;line-height:38px;font-size:20px;}
+	.addBarrager .submit{height:38px;background:#fff;font-size:20px;font-family: "微软雅黑";width:25%;margin-top:20px;border-left:1px solid #d5d5d5;}
+
+</style>
+
+</head>
+<body style="background-color:blueviolet;">
+	<div class="barrager">
+<div><span>你是一个善良，聪明，理智，孝顺，可爱的女孩</span></div>
+    <div><span>第一次见你的时候我就有一种感觉，我感觉我会答应你</span></div>
+    <div><span>永生花一生只能送一次</span></div>
+    <div><span>我花了九个小时画的，你可要好好保存，画在人在</span></div>
+    <div><span>我想弥补你丢东西的失落感</span></div>
+    <div><span>人越老越不得不相信缘分</span></div>
+    <div><span>All I can think about is how much I want to kiss you</span></div>
+    <div><span>我的眼中没有你，我的余光中都是你</span></div>
+     <div><span>You have always been and awlays will be the love of my life</span></div>
+     <div><span>我认识的男生中我最喜欢你</span></div>
+     <div><span>你的好我都记得，你说过的话也是</span></div>
+     <div><span>男朋友果然是快乐的源泉</span></div>
+         <div><span>你问我要过的东西我不会忘，我只是会把它变成一个小惊喜等个合适的时候送给你</span></div>
+       <div><span>要生生两个，最好一男一女</span></div>
+      </div>
+<script type="text/javascript">
+    $(function () {
+        $(".barrager").barrager()
+    });
+    (function () {
+        var Barrager = function (ele,options) {
+            var defaults = {
+                color:["#ff9999","#35d2f4","#9ee353","#9d77ff","#4785d9","#ff9333","#5bdea8","#51befc"],
+                wrap:ele
+            };
+            this.settings = $.extend({},defaults,options||{});
+            this._init();
+            this.bindEven();
+        };
+        Barrager.prototype = {
+            _init:function () {
+                var item = $(this.settings.wrap).find("div");
+                for(var i = 0;i<item.length;i++){
+                    item.eq(i).css({
+                        top:this.getReandomTop()+"px",
+                        color:this.getReandomColor(),
+                        fontSize:this.getReandomSize()+"px"
+                    });
+                    item.eq(i).css({
+                        right:-item.eq(i).width()
+                    })
+                }
+                this.randomTime(0);
+            },
+            bindEven:function () {
+                var _this = this;
+                $(".addBarrager .submit").on('click',function () {
+                    _this._click(_this);
+                });
+            },
+            getReandomColor:function () {
+                var max = this.settings.color.length;
+                var randomNum = Math.floor(Math.random()*max);
+                return this.settings.color[randomNum];
+            },
+            getReandomTop:function () {
+                var top = (Math.random()*450).toFixed(1);
+                return top;
+            },
+            getReandomSize:function () {
+                var size = (12+Math.random()*28);
+                return size;
+            },
+            getReandomTime:function () {
+                var time = Math.floor((8+Math.random()*10));
+                return time*1000;
+            },
+            randomTime:function (n) {
+                var obj = $(this.settings.wrap).find("div");
+                var _this = this;
+                var len = obj.length;
+                if(n>=len){
+                    n=0;
+                }
+                setTimeout(function () {
+                    n++;
+                    _this.randomTime(n)
+                },1000);
+                var item = obj.eq(n),_w = item.outerWidth(!0);
+                item.animate({
+                    left:-_w
+                },_this.getReandomTime(),"linear",function () {
+                    item.css({right:-_w,left:""});
+                    _this.randomTime(n)
+                });
+            },
+            _click:function (obj) {
+                var _this = obj;
+                var _val = $(".barVal");
+                if(_val.val() == ""){
+                    alert("请描述你对TA的印象！");
+                    return false;
+                }
+                $(_this.settings.wrap).append("<div><span class='new'>"+_val.val()+"</span></div>");
+                _this._init();
+                _val.val("");
+            }
+        };
+        $.fn.barrager = function (opt) {
+            var bger = new Barrager(this,opt);
+        }
+    })(jQuery);
+</script>
+</body>
+</html>
